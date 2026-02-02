@@ -9,6 +9,7 @@ export default function AdminOrderDetails() {
     const { id } = useParams();
     const [order, setOrder] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [updating, setUpdating] = useState(false);
 
     useEffect(() => {
         const fetchOrder = async () => {
@@ -23,6 +24,21 @@ export default function AdminOrderDetails() {
         };
         fetchOrder();
     }, [id]);
+
+    const handleUpdateStatus = async (newStatus) => {
+        if (!order) return;
+        setUpdating(true);
+        try {
+            const res = await api.put(`/admin/order/${id}/status`, { status: newStatus });
+            setOrder(res.data);
+            alert("Order status updated successfully");
+        } catch (error) {
+            console.error("Error updating status", error);
+            alert("Failed to update status");
+        } finally {
+            setUpdating(false);
+        }
+    };
 
     if (loading) return (
         <div className="flex items-center justify-center h-screen">
@@ -50,11 +66,25 @@ export default function AdminOrderDetails() {
                                 Placed on {new Date(order.createdAt).toLocaleString()}
                             </p>
                         </div>
-                        <span className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide
-                             ${order.status === 'completed' ? 'bg-green-100 text-green-800' :
-                                order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'}`}>
-                            {order.status}
-                        </span>
+                        <div className="flex items-center gap-3">
+                            <select
+                                value={order.status}
+                                onChange={(e) => handleUpdateStatus(e.target.value)}
+                                disabled={updating}
+                                className="px-4 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 bg-white"
+                            >
+                                <option value="PENDING">Pending</option>
+                                <option value="PROCESS">Processing</option>
+                                <option value="DELIVERED">Delivered</option>
+                                <option value="CANCEL">Cancelled</option>
+                            </select>
+                            <span className={`px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide
+                                 ${order.status === 'DELIVERED' ? 'bg-green-100 text-green-800' :
+                                    order.status === 'PENDING' ? 'bg-yellow-100 text-yellow-800' :
+                                        order.status === 'CANCEL' ? 'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800'}`}>
+                                {order.status}
+                            </span>
+                        </div>
                     </div>
 
                     <div className="p-8 grid md:grid-cols-2 gap-8">

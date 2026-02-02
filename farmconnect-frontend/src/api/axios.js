@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://farm-connect-sand.vercel.app/api",
+  baseURL: window.location.hostname === "localhost" ? "http://localhost:5000/api" : "https://farm-connect-sand.vercel.app/api",
 });
 
 api.interceptors.request.use((req) => {

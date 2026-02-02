@@ -12,7 +12,8 @@ import {
   getOrderDetails,
   deleteProduct,
   deleteAllOrders,
-  deleteUser
+  deleteUser,
+  updateOrderStatus
 } from "../controllers/adminController.js";
 
 import authMiddleware from "../middleware/authMiddleware.js";
@@ -38,5 +39,6 @@ router.get("/user/:id/orders", getUserOrders);
 router.get("/orders", getAllOrders);
 router.delete("/orders", deleteAllOrders);
 router.get("/order/:id", getOrderDetails);
+router.put("/order/:id/status", updateOrderStatus);
 
 export default router;

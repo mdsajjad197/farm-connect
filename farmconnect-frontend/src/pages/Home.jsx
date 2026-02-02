@@ -12,6 +12,7 @@ import api from "../api/axios";
 
 import Services from "./Services";
 import { useTranslation } from "react-i18next";
+import AnimatedSection from "../component/AnimatedSection";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -35,12 +36,18 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <HeroCarousel />
-      <InfiniteMarquee />
-      <Services />
+      <AnimatedSection>
+        <HeroCarousel />
+      </AnimatedSection>
+      <AnimatedSection delay={0.1}>
+        <InfiniteMarquee />
+      </AnimatedSection>
+      <AnimatedSection delay={0.2}>
+        <Services />
+      </AnimatedSection>
 
       {/* Featured Products Section */}
-      <div className="max-w-6xl mx-auto px-4 py-12 w-full">
+      <AnimatedSection className="max-w-6xl mx-auto px-4 py-12 w-full" delay={0.3}>
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-3xl font-bold text-gray-800">{t('home.featured')}</h2>
           <Link to="/products" className="text-green-600 font-semibold hover:underline">{t('home.viewAll')} &rarr;</Link>
@@ -51,11 +58,17 @@ export default function Home() {
             <ProductCard key={p._id} product={p} />
           ))}
         </div>
-      </div>
+      </AnimatedSection>
 
-      <NewsCarousel />
-      <Testimonials />
-      <StatsSection />
+      <AnimatedSection delay={0.1}>
+        <NewsCarousel />
+      </AnimatedSection>
+      <AnimatedSection delay={0.2}>
+        <Testimonials />
+      </AnimatedSection>
+      <AnimatedSection delay={0.3}>
+        <StatsSection />
+      </AnimatedSection>
       <Footer />
     </div>
   );

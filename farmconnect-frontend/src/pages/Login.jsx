@@ -1,13 +1,17 @@
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import api from "../api/axios";
 import { useTranslation } from "react-i18next";
+import AnimatedSection from "../component/AnimatedSection";
 
 import { toast } from "react-toastify";
 
 export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const { t } = useTranslation();
 
   const onSubmit = async (data) => {
@@ -77,7 +81,7 @@ export default function Login() {
     >
       <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
 
-      <div className="relative z-10 bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-2xl shadow-2xl w-full max-w-md text-white">
+      <AnimatedSection className="relative z-10 bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-2xl shadow-2xl w-full max-w-md text-white">
         <div className="text-center mb-8">
           <h2 className="text-4xl font-extrabold mb-2 drop-shadow-md">{t('auth.welcomeBack')}</h2>
           <p className="text-gray-200 text-lg">{t('auth.loginSubtitle')}</p>
@@ -94,12 +98,22 @@ export default function Login() {
           </div>
 
           <div>
-            <input
-              type="password"
-              {...register("password", { required: "Password is required" })}
-              placeholder={t('auth.passwordPlaceholder')}
-              className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-200 text-white transition-all shadow-inner"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                {...register("password", { required: "Password is required" })}
+                placeholder={t('auth.passwordPlaceholder')}
+                className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-200 text-white transition-all shadow-inner pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-200 hover:text-white transition-colors z-20 cursor-pointer p-1"
+                tabIndex="-1"
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+            </div>
             {errors.password && <p className="text-red-300 text-sm mt-1 ml-1">{errors.password.message}</p>}
           </div>
 
@@ -111,7 +125,8 @@ export default function Login() {
         <p className="text-center mt-6 text-gray-200">
           {t('auth.noAccount')} <Link to="/signup" className="text-green-300 hover:text-green-200 font-semibold underline decoration-2 underline-offset-4 transition-colors">{t('auth.signupLink')}</Link>
         </p>
-      </div>
+
+      </AnimatedSection>
     </div>
   );
 }

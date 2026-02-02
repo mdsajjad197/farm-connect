@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, ShoppingCart, User, MapPin, Tag, Star, Truck, ShieldCheck } from "lucide-react";
 import api from "../api/axios";
 import { useCart } from "../context/CartContext";
+import AnimatedSection from "../component/AnimatedSection";
 
 export default function ProductDetails() {
     const { id } = useParams();
@@ -74,7 +75,7 @@ export default function ProductDetails() {
                 </div>
 
                 {/* Main Product Card */}
-                <div className="bg-white/40 backdrop-blur-xl rounded-3xl shadow-xl border border-white/60 overflow-hidden lg:grid lg:grid-cols-2 gap-0 relative">
+                <AnimatedSection className="bg-white/40 backdrop-blur-xl rounded-3xl shadow-xl border border-white/60 overflow-hidden lg:grid lg:grid-cols-2 gap-0 relative">
 
                     {/* Image Section */}
                     <div className="relative h-96 lg:h-auto bg-gradient-to-b from-gray-50 to-gray-100/50 flex items-center justify-center p-8 overflow-hidden group">
@@ -195,7 +196,7 @@ export default function ProductDetails() {
                             </button>
                         </div>
                     </div>
-                </div>
+                </AnimatedSection>
             </div>
         </div>
     );

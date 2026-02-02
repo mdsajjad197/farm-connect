@@ -3,6 +3,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../api/axios";
 import { useTranslation } from "react-i18next";
+import AnimatedSection from "../component/AnimatedSection";
 
 import { toast } from "react-toastify";
 
@@ -55,7 +56,7 @@ export default function Signup() {
     >
       <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
 
-      <div className="relative z-10 bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-2xl shadow-2xl w-full max-w-md text-white my-8">
+      <AnimatedSection className="relative z-10 bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-2xl shadow-2xl w-full max-w-md text-white my-8">
         <div className="text-center mb-6">
           <h2 className="text-4xl font-extrabold mb-2 drop-shadow-md">{t('auth.joinFarmConnect')}</h2>
           <p className="text-gray-200 text-lg">{t('auth.signupSubtitle')}</p>
@@ -142,7 +143,8 @@ export default function Signup() {
         <p className="text-center mt-6 text-gray-200">
           {t('auth.alreadyAccount')} <Link to="/login" className="text-green-300 hover:text-green-200 font-semibold underline decoration-2 underline-offset-4 transition-colors">{t('auth.loginLink')}</Link>
         </p>
-      </div>
+
+      </AnimatedSection>
 
     </div>
   );
