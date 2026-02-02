@@ -1,8 +1,9 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LayoutDashboard, ShoppingBag, Users, LogOut, Menu, X, Settings, Package, Shield, User, MessageSquare } from "lucide-react";
 
 export default function Sidebar({ role, isOpen, setIsOpen }) {
     const location = useLocation();
+    const navigate = useNavigate();
 
     const toggleSidebar = () => setIsOpen(!isOpen);
 
@@ -66,7 +67,7 @@ export default function Sidebar({ role, isOpen, setIsOpen }) {
                     onClick={() => {
                         localStorage.removeItem("token");
                         localStorage.removeItem("role");
-                        window.location.href = "/login";
+                        navigate("/login");
                     }}
                     className="flex items-center p-3 w-full rounded-lg hover:bg-red-600/20 hover:text-red-300 transition-colors text-red-100"
                 >
