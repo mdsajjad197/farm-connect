@@ -113,7 +113,7 @@ export default function SellerProfile() {
                     <div key={p._id} className="bg-white rounded-xl shadow hover:shadow-lg transition p-4 flex flex-col h-full">
                         <Link to={`/product/${p._id}`}>
                             <img
-                                src={p.image?.startsWith("http") ? p.image : `http://localhost:5000/${p.image}`}
+                                src={p.image?.startsWith("http") ? p.image : `https://farm-connect-sand.vercel.app/${p.image}`}
                                 alt={p.name}
                                 className="h-40 w-full object-cover rounded-lg mb-3"
                             />

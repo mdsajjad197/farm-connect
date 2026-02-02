@@ -12,7 +12,7 @@ export default function ProductCard({ product }) {
 
   const imageUrl = product.image?.startsWith("http")
     ? product.image
-    : `http://localhost:5000${product.image?.startsWith('/') ? '' : '/'}${product.image}`;
+    : `https://farm-connect-sand.vercel.app${product.image?.startsWith('/') ? '' : '/'}${product.image}`;
 
   return (
     <Link to={`/product/${product._id}`} className="group block h-full">

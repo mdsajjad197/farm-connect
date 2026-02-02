@@ -411,7 +411,7 @@ export default function ConsumerDashboard() {
                                     <div className="h-48 bg-gray-100 relative">
                                         {product.image ? (
                                             <img
-                                                src={product.image.startsWith("http") ? product.image : `http://localhost:5000/${product.image.replace(/\\/g, '/')}`}
+                                                src={product.image.startsWith("http") ? product.image : `https://farm-connect-sand.vercel.app/${product.image.replace(/\\/g, '/')}`}
                                                 alt={product.name}
                                                 className="w-full h-full object-cover"
                                                 onError={(e) => { e.target.src = "https://via.placeholder.com/300?text=No+Image"; }}
@@ -497,7 +497,7 @@ export default function ConsumerDashboard() {
                                             <div className="flex items-start gap-4 flex-1">
                                                 <div className="w-16 h-16 bg-gray-200 rounded-lg overflow-hidden flex-shrink-0">
                                                     {order.productId?.image ? (
-                                                        <img src={order.productId.image.startsWith("http") ? order.productId.image : `http://localhost:5000/${order.productId.image}`} className="w-full h-full object-cover" />
+                                                        <img src={order.productId.image.startsWith("http") ? order.productId.image : `https://farm-connect-sand.vercel.app/${order.productId.image}`} className="w-full h-full object-cover" />
                                                     ) : (
                                                         <Package className="w-full h-full p-4 text-gray-400" />
                                                     )}

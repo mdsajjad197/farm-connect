@@ -80,7 +80,7 @@ export default function ProductDetails() {
                     <div className="relative h-96 lg:h-auto bg-gradient-to-b from-gray-50 to-gray-100/50 flex items-center justify-center p-8 overflow-hidden group">
                         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-200/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                         <img
-                            src={product.image?.startsWith("http") ? product.image : `http://localhost:5000/${product.image}`}
+                            src={product.image?.startsWith("http") ? product.image : `https://farm-connect-sand.vercel.app/${product.image}`}
                             alt={product.name}
                             className="w-full h-full object-contain max-h-[500px] drop-shadow-xl group-hover:scale-105 transition-transform duration-500 ease-out z-10"
                         />
