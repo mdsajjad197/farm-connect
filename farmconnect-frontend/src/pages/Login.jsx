@@ -23,24 +23,50 @@ export default function Login() {
         return;
       }
 
-      // Try user login
+      // Try user login first
       try {
         res = await api.post("/auth/user/login", data);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("role", "USER");
         toast.success(t('auth.loginSuccess') || "Login successful!");
         navigate("/home");
-      } catch {
-        // Try consumer login
+        return;
+      } catch (userError) {
+        // If user login fails with 404 (Not Found) or 401, try consumer login
+        // But if it's a 500 or network error, we should probably stop and report it.
+        // However, the original logic tried Consumer login on ANY error.
+        console.log("User login failed, trying consumer login:", userError.message);
+      }
+
+      // Try consumer login
+      try {
         res = await api.post("/auth/consumer/login", data);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("role", "CONSUMER");
         toast.success(t('auth.loginSuccess') || "Login successful!");
         navigate("/consumer/dashboard");
+      } catch (consumerError) {
+        // This is the final fallback error
+        console.error("Login Error:", consumerError);
+
+        let errorMessage = "Unknown error";
+        if (consumerError.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          errorMessage = consumerError.response.data?.message || `Server Error (${consumerError.response.status})`;
+        } else if (consumerError.request) {
+          // The request was made but no response was received
+          errorMessage = "No response from server. Check your connection.";
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          errorMessage = consumerError.message;
+        }
+
+        toast.error(`${t('auth.loginFailed')}: ${errorMessage}`);
       }
-    } catch (error) {
-      console.error(error);
-      toast.error(t('auth.loginFailed') + ": " + (error.response?.data?.message || "Unknown error") || "Login failed: " + (error.response?.data?.message || "Unknown error"));
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      toast.error("An unexpected error occurred.");
     }
   };
 
