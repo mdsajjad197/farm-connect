@@ -25,9 +25,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/consumer", consumerRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/feedback", feedbackRoutes);
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+
 
 app.listen(process.env.PORT, () => {
   console.log(`🚀 Server running on port ${process.env.PORT}`);
